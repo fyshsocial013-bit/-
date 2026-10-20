@@ -137,7 +137,6 @@
     </header>
 
     <main>
-        <!-- 首頁視圖 -->
         <section id="home-view" class="view-section active">
             <div class="card">
                 <h2>📜 線上探勘簡報</h2>
@@ -183,7 +182,6 @@
                 <div class="text-box" id="level-text" style="font-style: italic; background: #fdfefe; padding: 15px; border: 1px solid #eee; border-radius: 8px;"></div>
                 <div class="clue-box" id="level-clue"></div>
                 
-                <!-- 圖片展示區塊 -->
                 <div id="level-image-gallery" class="image-gallery"></div>
 
                 <div class="input-group">
@@ -208,7 +206,6 @@
     </footer>
 
     <script>
-        // 建議將各項目的 images 陣列都換成 Google Drive 的「共用檢視連結」，即可直接免上傳主機顯示
         const puzzleData = [
             { 
                 id: 1, title: "檔案 01：撕裂的大地", 
@@ -226,7 +223,9 @@
                 text: "日本人大老遠從南洋引進這種樹，就為了取其汁液，用以保護易腐朽的木頭器具。「癢！癢！好癢！」因其汁液帶毒，常令工人嚴重過敏。", 
                 clue: "【生態線索】這種植物的汁液是天然的塗料，但會引起皮膚過敏。提示：兩個字。",
                 answer: "漆樹", 
-                images: ["室外小漆樹.jpg"],
+                images: [
+                    "室外小漆樹.jpg"
+                ],
                 isUnlocked: false 
             },
             { 
@@ -234,7 +233,9 @@
                 text: "天還沒亮，就準備上工了。叫上張三、李四、王五，和趙六，大家一起摸黑出發。帶上刀與容器，今天可是至少要採五百棵樹呢？看大家熟練地在樹上刻畫V字的溝壑，插上貝殼，我可要多學學他們的「手路」。是說辛苦歸辛苦，誰叫這工作薪水那麼高呢？", 
                 clue: "【人文線索】請觀察附圖中樹幹上的 V 字割痕，這是他們獨特的採集手路。",
                 answer: "採漆工人像／採漆工人／漆樹", 
-                images: ["漆樹取漆_2.jpg"],
+                images: [
+                    "漆樹取漆_2.jpg"
+                ],
                 isUnlocked: false 
             },
             { 
@@ -250,7 +251,11 @@
                 text: "這是一連串的水利工程：儲水塔匯集旱溪、北坑、中坑、南坑等河水並將其儲存；匯入上池、澄清泥水，再經下池，過濾雜質，然後流入清水池。最後由配水池配往神岡與豐原。配水池的疏壓孔極具特色，而下池有一個有趣的歷史，就是曾改建為中正游泳池。", 
                 clue: "【建設線索】請觀察影像中與水利工程相關的設施遺址。",
                 answer: "自來水廠／儲水塔／澄泥池／過濾池／清水池／配水池", 
-                images: ["澄泥池_3.jpg", "清水池_3.jpg", "配水池.png"],
+                images: [
+                    "澄泥池_3.jpg",
+                    "清水池_3.jpg",
+                    "配水池.png"
+                ],
                 isUnlocked: false 
             },
             { 
@@ -274,7 +279,9 @@
                 text: "呼風喚雨一時，令你我處處見其大名。黃埔軍校校長他當過，陸海空統帥更是日常。如今人已千古，仍求萬世不朽。要見他，去慈湖。", 
                 clue: "【歷史線索】這是一座曾經代表政治威權的紅銅色巨像。",
                 answer: "蔣中正雕像／蔣公銅像／蔣介石", 
-                images: ["蔣公銅像.jpg"],
+                images: [
+                    "蔣公銅像.jpg"
+                ],
                 isUnlocked: false 
             },
             { 
@@ -290,7 +297,11 @@
                 text: "過了清明，低海拔山林被染成一片金黃，原來是它盛開的花。本是為減少水分蒸散而退化的葉，卻成為你我仰望天空之時，在天空作畫的細碎線條。它的身體，甚至能化作溫暖的火堆，陪你我度過漫漫長夜，想著許久未見的他。", 
                 clue: "【生態線索】觀察影像中的假葉與樹冠，它是早期燒製木炭的重要樹種。",
                 answer: "相思樹", 
-                images: ["相思葉片_2.jpg", "相思樹_2.jpg", "相思樹_2.png"],
+                images: [
+                    "相思葉片_2.jpg",
+                    "相思樹_2.jpg",
+                    "相思樹_2.png"
+                ],
                 isUnlocked: false 
             },
             { 
@@ -298,7 +309,9 @@
                 text: "被稱為低海拔的神木，先人取其樹幹，碎其身，熬出精華。其精華竟是重要的工業原料，可用於醫藥、製造賽璐珞，甚至製造火藥。於是清代日治之時，台灣淺山處處可見其身影，它也成為台灣出口商品之大宗。若想找到它，請尋找它裂紋密布的身體，香氣四溢的枝葉。", 
                 clue: "【生態線索】觀察影像中樹幹明顯的縱裂紋，它是台灣早期的出口大宗。",
                 answer: "樟樹", 
-                images: ["樟樹-2_2.jpg"],
+                images: [
+                    "樟樹-2_2.jpg"
+                ],
                 isUnlocked: false 
             },
             { 
@@ -306,7 +319,9 @@
                 text: "此處乃中正公園最高點，若你到此，必有大秘寶！少則身心舒暢，多則永保安康！在此遠眺后豐遠景、大甲溪流，盡收眼底。", 
                 clue: "【地標線索】觀察影像，這是公園的最高點，擁有極佳的視野與祝福。",
                 answer: "平安嶺", 
-                images: ["平安嶺_2.jpg"],
+                images: [
+                    "平安嶺_2.jpg"
+                ],
                 isUnlocked: false 
             },
             { 
@@ -340,11 +355,10 @@
             });
         }
 
-        // 解析 Google Drive 與檔案路徑的核心函式
+        // 自動解析 Google Drive 直連或本地相對路徑
         function parseImageUrl(src) {
             if (!src) return '';
             
-            // 處理 Google Drive 分享連結
             if (src.includes('drive.google.com')) {
                 let fileId = '';
                 const matchD = src.match(/\/d\/([a-zA-Z0-9_-]+)/);
@@ -357,12 +371,10 @@
                 }
                 
                 if (fileId) {
-                    // 使用 Google Drive 縮圖直連 CDN
                     return `https://lh3.googleusercontent.com/d/${fileId}`;
                 }
             }
             
-            // 處理相對路徑（將中文檔名轉碼，避免網址亂碼 404）
             return encodeURI(src);
         }
 
@@ -390,7 +402,7 @@
                     
                     img.onerror = function() {
                         this.onerror = null;
-                        this.outerHTML = `<div class="img-fallback">📷 影像無法載入<br><small>原始檔案名稱：${originalSrc}</small></div>`;
+                        this.outerHTML = `<div class="img-fallback">📷 影像無法載入<br><small>檔案路徑：${originalSrc}</small></div>`;
                     };
                     gallery.appendChild(img);
                 });
