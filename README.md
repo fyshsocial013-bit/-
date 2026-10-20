@@ -24,7 +24,7 @@
             display: flex; 
             flex-direction: column;
             min-height: 100vh;
-            -webkit-tap-highlight-color: transparent; /* 移除手機點擊閃爍 */
+            -webkit-tap-highlight-color: transparent;
         }
 
         header {
@@ -95,7 +95,7 @@
 
         .input-box { 
             width: 100%; box-sizing: border-box; padding: 16px; 
-            font-size: 16px; /* 強制 16px 防止 iOS 縮放 */
+            font-size: 16px;
             border: 2px solid #bdc3c7; border-radius: 10px; 
             margin-bottom: 1rem; outline: none; transition: border-color 0.2s;
         }
@@ -339,6 +339,32 @@
             });
         }
 
+        // 解析 Google Drive 與檔案路徑的核心函式
+        function parseImageUrl(src) {
+            if (!src) return '';
+            
+            // 處理 Google Drive 分享連結
+            if (src.includes('drive.google.com')) {
+                let fileId = '';
+                const matchD = src.match(/\/d\/([a-zA-Z0-9_-]+)/);
+                const matchId = src.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+                
+                if (matchD && matchD[1]) {
+                    fileId = matchD[1];
+                } else if (matchId && matchId[1]) {
+                    fileId = matchId[1];
+                }
+                
+                if (fileId) {
+                    // 改用穩定直連的 Google 縮圖 CDN
+                    return `https://lh3.googleusercontent.com/d/${fileId}`;
+                }
+            }
+            
+            // 處理相對路徑（若包含中文檔名，編碼確保網址合法）
+            return encodeURI(src);
+        }
+
         function openLevel(id) {
             const puzzle = puzzleData.find(p => p.id === id);
             if (!puzzle) return;
@@ -349,28 +375,22 @@
             document.getElementById('level-text').innerText = puzzle.text;
             document.getElementById('level-clue').innerText = puzzle.clue;
             
-            // 處理圖片載入與 Google Drive 連結解析
             const gallery = document.getElementById('level-image-gallery');
             gallery.innerHTML = '';
             
             if (puzzle.images && puzzle.images.length > 0) {
                 gallery.style.display = 'flex';
-                puzzle.images.forEach(imgSrc => {
+                puzzle.images.forEach(originalSrc => {
                     const img = document.createElement('img');
+                    const resolvedSrc = parseImageUrl(originalSrc);
                     
-                    // 自動解析 Google Drive 連結
-                    if (imgSrc.includes('drive.google.com/file/d/')) {
-                        const match = imgSrc.match(/\/d\/(.+?)\//);
-                        if (match && match[1]) {
-                            imgSrc = `https://drive.google.com/uc?id=${match[1]}&export=download`;
-                        }
-                    }
+                    img.src = resolvedSrc;
+                    img.alt = puzzle.title;
                     
-                    img.src = imgSrc;
-                    // 若圖片載入失敗，顯示優雅的備用圖案與檔名
+                    // 影像無法載入時的降級提示
                     img.onerror = function() {
                         this.onerror = null;
-                        this.outerHTML = `<div class="img-fallback">📷 影像無法載入<br><small>檔案：${imgSrc}</small></div>`;
+                        this.outerHTML = `<div class="img-fallback">📷 影像無法載入<br><small>原始檔案名稱：${originalSrc}</small></div>`;
                     };
                     gallery.appendChild(img);
                 });
@@ -378,7 +398,6 @@
                 gallery.style.display = 'none';
             }
             
-            // 處理輸入框狀態
             const input = document.getElementById('answer-input');
             const submitBtn = document.getElementById('submit-btn');
             input.value = '';
@@ -397,7 +416,6 @@
             const inputVal = document.getElementById('answer-input').value.trim();
             const possibleAnswers = currentActiveLevel.answer.split('／');
             
-            // 模糊比對邏輯：只要輸入值包含解答片段，或解答包含輸入值（且輸入達2字以上）即判定正確
             let isCorrect = possibleAnswers.some(ans => 
                 inputVal && (inputVal.includes(ans) || (ans.includes(inputVal) && inputVal.length >= 2))
             );
@@ -422,7 +440,6 @@
         function closeModal() {
             modal.classList.remove('active');
             
-            // 檢查是否全部通關
             const allUnlocked = puzzleData.every(p => p.isUnlocked);
             if (allUnlocked && currentActiveLevel && currentActiveLevel.isUnlocked) {
                 setTimeout(() => {
