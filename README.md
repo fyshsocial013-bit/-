@@ -208,6 +208,7 @@
     </footer>
 
     <script>
+        // 建議將各項目的 images 陣列都換成 Google Drive 的「共用檢視連結」，即可直接免上傳主機顯示
         const puzzleData = [
             { 
                 id: 1, title: "檔案 01：撕裂的大地", 
@@ -356,12 +357,12 @@
                 }
                 
                 if (fileId) {
-                    // 改用穩定直連的 Google 縮圖 CDN
+                    // 使用 Google Drive 縮圖直連 CDN
                     return `https://lh3.googleusercontent.com/d/${fileId}`;
                 }
             }
             
-            // 處理相對路徑（若包含中文檔名，編碼確保網址合法）
+            // 處理相對路徑（將中文檔名轉碼，避免網址亂碼 404）
             return encodeURI(src);
         }
 
@@ -387,7 +388,6 @@
                     img.src = resolvedSrc;
                     img.alt = puzzle.title;
                     
-                    // 影像無法載入時的降級提示
                     img.onerror = function() {
                         this.onerror = null;
                         this.outerHTML = `<div class="img-fallback">📷 影像無法載入<br><small>原始檔案名稱：${originalSrc}</small></div>`;
